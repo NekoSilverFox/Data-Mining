@@ -144,7 +144,7 @@ Jupyter 支持两种模式：
 
 ![image-20220126172822687](doc/pic/README/image-20220126172822687.png)
 
-#### 容器层
+
 
 **由底向高：**
 
@@ -208,19 +208,13 @@ Jupyter 支持两种模式：
 
 
 
-### 辅助显示层
+### 绘图
 
+`matplotlib.pytplot` 包含了一系列类似于 matlab 的画图函数。他的函数作用于当前图形（figure）的当前坐标系（axes）
 
-
-
-
-
-
-### 图像层
-
-
-
-
+```python
+ import matplotlib.pyplot as plt
+```
 
 
 
