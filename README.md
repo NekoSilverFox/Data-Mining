@@ -191,7 +191,7 @@ Jupyter 支持两种模式：
 **特点：**
 
 - 一个 figure（画布）可以包含多个axes（坐标系/绘图区），但是一个axes只能属于个 figure
-- 一个axes（坐标系/绘图区）可以包含多个axis（坐标轴），包含两个即为2d坐标系，3个即为3d坐标系
+- 一个 axes（坐标系/绘图区）可以包含多个axis（坐标轴），包含两个即为2d坐标系，3个即为3d坐标系
 
 
 
@@ -218,45 +218,112 @@ Jupyter 支持两种模式：
 
 
 
+---
 
 
 
+### 折线图（plot）与基础绘图功能
 
+- **API**
 
+| API                                         | 功能                           | 参数                                 |
+| ------------------------------------------- | ------------------------------ | ------------------------------------ |
+| `plt.figure(figsize=(x, y), dpi=y轴分辨率)` | 创建画布                       |                                      |
+| `plt.plot(x轴数据列表, y轴数据列表)`        | 绘制图像                       |                                      |
+| `plt.xticks(x要显示的刻度列表, **说明)`     | 添加自定义 x 刻度              |                                      |
+| `plt.yticks(y要显示的刻度列表, **说明)`     | 添加自定义 y 刻度              |                                      |
+| `plt.title('说明字符串')`                   | 添加标题                       |                                      |
+| `plt.xlabel('说明字符串')`                  | 添加 x 轴说明                  |                                      |
+| `plt.ylabel('说明字符串')`                  | 添加 y 轴说明                  |                                      |
+| `plt.grid(True, linestyle='--', alpha=0.5)` | 添加网格显示                   | `linestyle`-线条风格；`alpha`-透明度 |
+|                                             |                                |                                      |
+|                                             |                                |                                      |
+| `plt.savefig('路径')`                       | 保存图像                       |                                      |
+| `plt.show()`                                | 显示图像，并释放画布的所有资源 |                                      |
 
 
 
+- **图形风格**
 
+| 颜色字符 | 风格字符        |
+| -------- | --------------- |
+| r 红色   | `-` 实线        |
+| g 绿色   | `--` 虚线       |
+| b 蓝色   | `-.` 点划线     |
+| w 白色   | `:`点虚线       |
+| c 青色   | `''` 留空、空格 |
+| m 洋红   |                 |
+| y 黄色   |                 |
+| k 黑色   |                 |
 
 
 
 
 
+- **显示图例**
 
+​	注意:如果只在plt.plot()中设置label还不能最终显示出图例，还需要通过plt.legend()将图例显示出来。
 
+```python
+ # 绘制折线图
+plt.plot(x, y_shanghai, label="上海")
 
+# 使用多次plot可以画多个折线
+plt.plot(x, y_beijing, color='r', linestyle='--', label="北京")
 
+# 显示图例
+plt.legend(loc="best")
+```
 
 
 
+| **Location String** | **Location Code** |
+| ------------------- | ----------------- |
+| 'best'              | 0                 |
+| 'upper right'       | 1                 |
+| 'upper left'        | 2                 |
+| 'lower left'        | 3                 |
+| 'lower right'       | 4                 |
+| 'right'             | 5                 |
+| 'center left'       | 6                 |
+| 'center right'      | 7                 |
+| 'lower center'      | 8                 |
+| 'upper center'      | 9                 |
+| 'center'            | 10                |
 
 
 
+- **多个坐标系显示 plt.subplots(面向对象的画图方法)**
 
+![image-20220126231559287](doc/pic/README/image-20220126231559287.png)
 
 
 
+可以通过subplots函数实现(旧的版本中有subplot，使用起来不方便)，推荐subplots函数
 
 
 
+**API:**
 
+`matplotlib.pyplot.subplots(nrows=列数, ncols=行数, **fig_kw) ` 创建一个带有多个axes(坐标系/绘图区)的图
 
+返回值：
 
+- figure : 图对象
+- axes : 返回相应数量的坐标系
 
+之后在调用的时候，也不能直接使用 `plt.方法名()` 了，要用返回的 `ares[索引].set_方法名()` 
 
+另外，在这种多坐标系显示的情况下，设置标题的方式也有所不同：
 
+技巧：基本是涉及到辅助显示层的都要加 `set_`
 
+- set_xticks 
+- set_yticks 
+- set_xlabel
+- set_ylabel
 
+> 参考：https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes
 
 
 
@@ -320,3 +387,38 @@ Jupyter 支持两种模式：
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mmmmmmmmmmmmmmmmmmmm
