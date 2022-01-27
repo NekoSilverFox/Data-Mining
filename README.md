@@ -333,6 +333,27 @@ plt.legend(loc="best")
 
 `plt.plot()` 除了画折线图还可以画各种数学函数图像
 
+```python
+# 准备数据
+import numpy as np
+from matplotlib import pyplot as plt
+
+x = np.linspace(-1, 1 , 1000)
+y = 2 * x * x
+
+# 创建画布
+plt.figure(figsize=(20, 8), dpi=80)
+
+# 绘制图像
+plt.plot(x, y)
+
+# 添加网格显示
+plt.grid(linestyle='--', alpha=0.7)
+
+# 显示图像
+plt.show()
+```
+
 
 
 
