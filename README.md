@@ -432,6 +432,48 @@ plt.show()
 
 
 
+#### 平移坐标以显示多个柱子
+
+
+
+- **如果要想实现在一个分类里显示两个柱状图，本质上是在绘制时把柱子和坐标平移！**
+
+![image-20220127184415002](doc/pic/README/image-20220127184415002.png)
+
+```python
+from matplotlib import pyplot as plt
+
+
+# 准备数据
+movie_name = ['雷神3:诸神黄昏','正义联盟', '寻梦环游记']
+first_day = [105786.3, 10063.5, 1278.3]
+first_weekend = [36224.9, 34486.6, 11863]
+
+# 创建画布
+plt.figure(figsize=(20, 8), dpi=80)
+
+# 绘制柱状图
+"""
+【重点】要想在一个分类里显示两个，其实是把第二个柱状图给平移了一下，避免两个柱状图挡在一起
+ 这里用一个列表生成式进行书写
+""" 
+x = range(len(movie_name))
+plt.bar(x, first_day, width=0.2, label='首日票房')
+plt.bar([i + 0.2 for i in x], first_weekend, width=0.2, label='首周票房')
+plt.legend()  # 显示图例
+
+# 辅助显示层
+plt.title('第一天及第一周票房')
+plt.xticks([i + 0.1 for i in x], movie_name)  # 【重点】修改刻度，这里的列表生成式其实是把刻度给平移了
+
+# 展示
+plt.show()
+```
+
+
+
+
+
 
 
 ### 直方图（histogram）
