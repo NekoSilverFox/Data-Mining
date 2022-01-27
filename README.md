@@ -136,13 +136,13 @@ Jupyter 支持两种模式：
 
 ### 图像结构
 
-![image-20220126005157777](doc/pic/README/image-20220126005157777.png)
+<img src="doc/pic/README/image-20220126005157777.png" alt="image-20220126005157777" style="zoom: 33%;" />
 
 
 
 ### Matplotlib 三层结构
 
-![image-20220126172822687](doc/pic/README/image-20220126172822687.png)
+<img src="doc/pic/README/image-20220126172822687.png" alt="image-20220126172822687" style="zoom:30%;" />
 
 
 
@@ -174,7 +174,7 @@ Jupyter 支持两种模式：
 
         每一个绘图区上的不同图像层都可以画不同的图表
 
-        图像层指 Axes 内通过 plot、scatter、bar、histogram、pie 等函数根据数据绘制出的图像
+        图像层指 Axes 内通过 plot、scatter、bar、hist、pie 等函数根据数据绘制出的图像
 
         
 
@@ -564,9 +564,59 @@ plt.show()
 
 ### 饼图（pie）
 
+**API:**
+
+`plt.pie(x, labels=[] , autopct=如何显示占比, colors=[])`
+
+- `x` 数据（数量），饼图会按照给定的数据自动计算占比
+
+- `labels` 每个 x 中的数据（扇形）对应的名称
+
+- `autopct` 如何显示占比，建议使用**`%1.2f%%`**
+
+    `%%`表示一个百分号、`.2f`表示浮点型并保留两位小数、`1`表示占几个位置
+
+- `colors` 没部分的颜色
 
 
 
+**注意：**
+
+- 饼图默认不是圆形的，要想使饼图为圆形，需要添加 axis，保证长宽一致，调用：
+
+```python
+plt.axis('equal')
+```
+
+- 如果要展示的数量超过 9 个，不建议使用饼图，而应该使用直方图
+
+
+
+
+
+**示例：**
+
+```python
+# 展示各个电影票房的占比
+from matplotlib import pyplot as plt
+
+# 准备数据
+movie_name = ['雷神3：诸神黄昏','正义联盟','东方快车谋杀案','寻梦环游记','全球风暴','降魔传','追捕','七十七天','密战','狂兽','其它']
+place_count = [60605,54546,45819,28243,13270,9945,7679,6799,6101,4621,20105]
+
+# 新建画布
+plt.figure(figsize=(20, 8), dpi=80)
+
+# 绘制图像
+plt.pie(place_count, labels=movie_name, colors=['b','r','g','y','c','m','y','k','c','g','y'], autopct='%1.2f%%')
+plt.legend()
+
+# 将饼图转换为圆形
+plt.axis('equal')
+
+# 显示图像
+plt.show()
+```
 
 
 
