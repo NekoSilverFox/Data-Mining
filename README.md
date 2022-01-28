@@ -10,9 +10,15 @@
 
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen)](LICENSE)
-![Library](https://img.shields.io/badge/Library-Scikit--learn-orange)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
 
+</br>
+
+![Library](https://img.shields.io/badge/Library-Matplotlib-orange)
+![Library](https://img.shields.io/badge/Library-Numpy-orange)
+![Library](https://img.shields.io/badge/Library-Pandas-orange)
+![Library](https://img.shields.io/badge/Library-Jypyter-orange)
+![Library](https://img.shields.io/badge/Library-Tables-orange)
 
 
 <div align=left>
@@ -26,14 +32,14 @@
 
 # 环境安装
 
-| 库         | 说明                                                |
-| ---------- | --------------------------------------------------- |
-| matplotlib |                                                     |
-| numpy      |                                                     |
-| pandas     |                                                     |
-| TA-Lib     | 技术指标库                                          |
-| tables     | 读取某一种数据文件（hdf5 - 经过压缩的一种数据文件） |
-| jupyter    | 数据分析与展示的平台                                |
+| 库         | 说明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| matplotlib | 可以借助它进行绘制柱状图、折线图、散点图、直方图、函数图像等 |
+| numpy      |                                                              |
+| pandas     | 可以用于数据清洗                                             |
+| TA-Lib     | 技术指标库                                                   |
+| tables     | 读取某一种数据文件（hdf5 - 经过压缩的一种数据文件）          |
+| jupyter    | 数据分析与展示的平台                                         |
 
 
 
@@ -150,21 +156,21 @@ Jupyter 支持两种模式：
 
 - **画板层（Canvas）**
 
-​	Canvas是位于最底层的系统层，在绘图的过程中充当画板的角色，即放置画布（Figure）的工具。
+​	Canvas 是位于最底层的系统层，在绘图的过程中充当画板的角色，即放置画布（Figure）的工具。
 
 
 
 - **画布层（Figure）**
 
-    Figure是 Canvas上方的*第一层*，也是需要用户来操作的应用层的第一层，在绘图的过程中充当画布的角色
+    Figure 是 Canvas 上方的*第一层*，也是需要用户来操作的应用层的第一层，在绘图的过程中充当画布的角色
 
-    创建或设置画布：`plt.figure()`
+    **创建或设置画布**：`plt.figure()`
 
     
 
 - **绘图区/坐标系（Axes）**
 
-    Axes是应用层的第二层，在绘图的过程中相当于画布上的绘图区的角色
+    Axes 是应用层的第二层，在绘图的过程中相当于画布上的绘图区的角色
 
     画布上是默认有一个绘图区，一个绘图区是有 x、y 轴张成的区域
 
@@ -190,8 +196,8 @@ Jupyter 支持两种模式：
 
 **特点：**
 
-- 一个 figure（画布）可以包含多个axes（坐标系/绘图区），但是一个axes只能属于个 figure
-- 一个 axes（坐标系/绘图区）可以包含多个axis（坐标轴），包含两个即为2d坐标系，3个即为3d坐标系
+- 一个 figure（画布）可以包含多个 axes（坐标系/绘图区），但是一个 axes 只能属于个 figure
+- 一个 axes（坐标系/绘图区）可以包含多个 axis（坐标轴），包含两个即为2d坐标系，3个即为3d坐标系
 
 
 
@@ -272,7 +278,7 @@ Jupyter 支持两种模式：
 
 ### 显示图例
 
-​	注意:如果只在plt.plot()中设置label还不能最终显示出图例，还需要通过plt.legend()将图例显示出来。
+> 注意:如果只在 `plt.plot()`中设置 label 还不能最终显示出图例，还需要通过 `plt.legend()` 将图例显示出来。
 
 ```python
  # 绘制折线图
@@ -286,6 +292,8 @@ plt.legend(loc="best")
 ```
 
 
+
+**图例位置：**
 
 | **Location String** | **Location Code** |
 | ------------------- | ----------------- |
@@ -516,6 +524,8 @@ matplotlib.pyplot.hist(x, bins=None, density=False, **kwargs)
     - `bins` 就是组数
     - `density` 是否显示频率
 ```
+
+
 
 
 
