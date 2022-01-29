@@ -17,7 +17,7 @@
 ![Library](https://img.shields.io/badge/Library-Matplotlib-orange)
 ![Library](https://img.shields.io/badge/Library-Numpy-orange)
 ![Library](https://img.shields.io/badge/Library-Pandas-orange)
-![Library](https://img.shields.io/badge/Library-Jypyter-orange)
+![Library](https://img.shields.io/badge/Library-Jupyter-orange)
 ![Library](https://img.shields.io/badge/Library-Tables-orange)
 
 
@@ -628,17 +628,138 @@ plt.axis('equal')
 plt.show()
 ```
 
+---
 
 
 
 
 
+# Numpy
+
+![upload.wikimedia.org/wikipedia/commons/thumb/3/...](https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/NumPy_logo_2020.svg/800px-NumPy_logo_2020.svg.png)
+
+## 简介
+
+Numpy(Numerical Python) 是一个开源的 Python 科学计算库，用于**快速处理任意维度的数组**（ndarray）。 
+
+Numpy 支持常见的数组和矩阵操作。对于同样的数值计算任务，使用 Numpy 比直接使用 Python 要简洁的多。 
+
+Numpy 使用 **ndarray** 对象来处理多维数组，该对象是一个**快速而灵活的大数据容器**。
+
+Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专门针对 ndarray 的操作和运算进行了设计，所以数组的存储效率和输入输出性能远优于 Python 中的嵌套列表，数组越大，Numpy 的优势就越明显。
 
 
 
+**其中，ndarray 的意思是：**
+
+- n - 任意一个
+- d - dimension 维度数组
+- array - 数组
 
 
 
+**Numpy 的基本操作：**
+
+- `ndarray.方法()` 用它来做逻辑运算、统计运算、数组间运算。
+- `numpy.函数名()`
+
+
+
+> 注意：合并、分割、IO 操作、数据其实也可以使用 Numpy，但是它做的并不是很好。我们将使用 Pandas
+
+
+
+## ndarray 内存块
+
+<img src="doc/pic/README/image-20220128175851159.png" alt="image-20220128175851159" style="zoom:50%;" />
+
+从图中我们可以看出 ndarray 在存储数据的时候，**数据与数据的地址都是连续的，且只能同时存储一个类型是数据**，这样就给使得批量操作数组元素时速度更快。而 Python 自带的 list 数据在内存中的位置是分散的，但是可以存储不同的数据
+
+具体的解释：这是因为 ndarray 中的所有元素的类型都是相同的，而 Python 列表中的元素类型是任意的，所以 ndarray 在存储元素时内存可以连续，而 python 原生 list 就只能通过寻址方式找到下一个元素，这虽然也导致了在通用性能方面 Numpy 的 ndarray 不及 Python 原生 list，但**在科学计算中，Numpy 的ndarray 就可以省掉很多循环语句，代码使用方面比 Python 原生 list 简单的多**。
+
+
+
+- **ndarray** 支持并行化运算(向量化运算)
+
+    numpy内置了并行运算功能，当系统有多个核心时，做某种计算时，numpy会自动做并行计算
+
+    
+
+- 效率远高于纯 **Python** 代码
+
+    Numpy底层使用C语言编写，内部解除了GIL(全局解释器锁)，其对数组的操作速度不受 Python 解释器的限制，所以，其效率远高于纯 Python 代码
+
+
+
+## ndarray 的属性及方法
+
+> 若不指定数据类型，整数默认 int64，小数默认 float64
+
+
+
+- **numpy.dtype 类型**
+
+    `dtype` 是 `numpy.dtype` 类型
+    
+    | 名称          | 描述                                             | 简写  |
+    | ------------- | ------------------------------------------------ | ----- |
+    | np.bool       | 用一个字节存储的布尔类型(True或False)            | 'b'   |
+    | np.int8       | 一个字节大小，-128 至 127                        | 'i'   |
+    | np.int16      | 整数，-32768 至 32767                            | 'i2'  |
+    | np.int32      | 整数，-2^31 至 2^32 -1                           | 'i4'  |
+    | np.int64      | 整数，-2^63 至 2^63 - 1                          | 'i8'  |
+    | np.uint8      | 无符号整数，0 至 255                             | 'u'   |
+    | np.uint16     | 无符号整数，0 至 65535                           | 'u2'  |
+    | np.uint32     | 无符号整数，0 至 2^32 - 1                        | 'u4'  |
+    | np.uint64     | 无符号整数，0 至 2^64 - 1                        | 'u8'  |
+    | np.float16    | 半精度浮点数:16位，正负号1位，指数5位，精度10位  | 'f2'  |
+    | np.float32    | 单精度浮点数:32位，正负号1位，指数8位，精度23位  | 'f4'  |
+    | np.float64    | 双精度浮点数:64位，正负号1位，指数11位，精度52位 | 'f8'  |
+    | np.complex64  | 复数，分别用两个32位浮点数表示实部和虚部         | 'c8'  |
+    | np.complex128 | 复数，分别用两个64位浮点数表示实部和虚部         | 'c16' |
+    | np.object_    | python对象                                       | 'O'   |
+    | np.string_    | 字符串                                           | 'S'   |
+    | np.unicode_   | unicode类型                                      | 'U'   |
+
+
+​    
+
+
+
+- **生成数组的方法**
+
+    - **生成0和1的数组**
+
+        | 方法                       | 描述 |
+        | -------------------------- | ---- |
+        | **`np.ones(shape=形状, dtype=数据类型)`** | `shape` 可以以列表或者元组的形式传入；`dtype` 可以指定数据类型 |
+        | `np.ones_like(a=数组, dtype=数据类型)` | `a` 可以是 ndarray，生成和 `a` **形状一样的新** `ndarray` |
+        | **`np.zeros(shape=形状, dtype=数据类型)`** |      |
+        | `np.zeros_like(a=数组, dtype=数据类型)` |      |
+
+        
+
+    - **从现有数组生成**
+
+        | 方法                                          | 描述                                           |
+        | --------------------------------------------- | ---------------------------------------------- |
+        | `np.array(object=现有数组, dtype=数据类型)`   | **【深拷贝】**返回跟参数中的数组一样的 ndarray |
+        | `np.asarray(object=现有数组, dtype=数据类型)` | **【浅拷贝】**返回跟参数中的数组一样的 ndarray |
+
+
+    
+
+- 
+
+- **ndarray 的属性**
+
+| 属性名字           | 属性解释                                                     |
+| ------------------ | ------------------------------------------------------------ |
+| `ndarray.shape`    | 返回数组维度的**元组**，元组中一个元素代表一个维度，如果只有一个维度则用 `(n, )` 表示 |
+| `ndarray.ndim`     | 返回数组维数                                                 |
+| `ndarray.size`     | 返回数组中的元素数量                                         |
+| `ndarray.itemsize` | 返回数组中一个元素的长度（字节）                             |
+| `ndarray.dtype`    | 数组元素的类型                                               |
 
 
 
