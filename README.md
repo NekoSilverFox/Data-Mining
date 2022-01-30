@@ -872,7 +872,7 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
     - **返创建并回指定形状的标准正态分布的数组**
 
         ```python
-        np.random.standard_normal(size=数组大小)
+        np.random.standard_normal(size=数组形状)
         ```
 
         
@@ -880,7 +880,7 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
     - **创建并返回指定均值和标准差的正态分布**
 
         ```python
-        np.random.normal(loc=float类型的均值, scale=标准差, size=数量默认1个)
+        np.random.normal(loc=float类型的均值, scale=标准差, size=数组形状默认1)
         ```
 
         
