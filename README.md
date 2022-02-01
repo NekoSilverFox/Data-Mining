@@ -978,7 +978,36 @@ array([[[ 1,  2,  3],
 
 ### 数组的去重
 
+- 利用 Numpy 提供的方法进行直接去重
 
+    ```python
+    numpy.unique(ndarry数组)
+    
+    
+    temp = np.array([[1, 2, 3, 4],[3, 4, 5, 6]])
+    np.unique(temp)
+    
+    >>> 输出：
+    array([1, 2, 3, 4, 5, 6])
+    ```
+
+    **返回**去重后的**数的数组**
+
+    
+
+    
+
+- 利用将 `ndarray.flatten()` 先转换为一维数组，再利用 Python set集合的方式去重
+
+    ```python
+    set(ndarry.flatten())
+    
+    
+    >>> 输出：
+    array([1, 2, 3, 4, 5, 6])
+    ```
+
+    **返回**去重后的**数的集合**
 
 
 
@@ -986,41 +1015,41 @@ array([[[ 1,  2,  3],
 
 - 创建数组【掌握】
     - 生成0和1的数组
-        - np.ones()
-        - np.ones_like()
+        - `np.ones()`
+        - `np.ones_like()`
     - 从现有数组中生成
-        - np.array -- 深拷贝
-        - np.asarray -- 浅拷贝
+        - `np.array` -- 深拷贝
+        - `np.asarray` -- 浅拷贝
     - 生成固定范围数组
-        - np.linspace()
-            - nun -- 生成等间隔的多少个
-        - np.arange()
+        - `np.linspace()`
+            - nun -- 生成**等间隔**的多少个
+        - `np.arange()`
             - step -- 每间隔多少生成数据
-        - np.logspace()
+        - `np.logspace()`
             - 生成以10的N次幂的数据
     - 生层随机数组
         - 正态分布
             - 里面需要关注的参数:均值:u, 标准差:σ
                 - u -- 决定了这个图形的左右位置
                 - σ -- 决定了这个图形是瘦高还是矮胖
-            - np.random.randn()
-            - np.random.normal(0, 1, 100)
+            - `np.random.randn()`
+            - `np.random.normal(0, 1, 100)`
         - 均匀
-            - np.random.rand()
-            - np.random.uniform(0, 1, 100)
-            - np.random.randint(0, 10, 10)
+            - `np.random.rand()`
+            - `np.random.uniform(0, 1, 100)`
+            - `np.random.randint(0, 10, 10)`
 - 数组索引【知道】
     - 直接进行索引,切片
     - 对象[:, :] -- 先行后列
 - 数组形状改变【掌握】
-    - 对象.reshape()
+    - `对象.reshape()`
         - 没有进行行列互换,新产生一个ndarray
-    - 对象.resize()
+    - `对象.resize()`
         - 没有进行行列互换,修改原来的ndarray
-    - 对象.T
+    - `对象.T`
         - 进行了行列互换
 - 数组去重【知道】
-    - np.unique(对象)
+    - `np.unique(对象)`
 
 
 
