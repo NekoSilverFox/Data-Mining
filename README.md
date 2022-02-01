@@ -1,8 +1,9 @@
 <p align="center">
  <img width="100px" src="https://raw.githubusercontent.com/NekoSilverFox/NekoSilverfox/403ab045b7d9adeaaf8186c451af7243f5d8f46d/icons/silverfox.svg" align="center" alt="NekoSilverfox" />
  <h1 align="center">数据挖掘</h1>
- <p align="center"><b>子标题（说明）</b></p>
+ <p align="center"><b>Jupyter、Matplotlib、Numpy、Pandas</b></p>
 </p>
+
 
 
 <div align=center>
@@ -1011,7 +1012,7 @@ array([[[ 1,  2,  3],
 
 
 
-### 总结
+### 小结
 
 - 创建数组【掌握】
     - 生成0和1的数组
