@@ -1073,7 +1073,7 @@ array([[ True,  True,  True, False,  True],
        [ True,  True, False, False,  True],
        [False,  True,  True,  True,  True]])
 
-# BOOL赋值, 将满足条件的设置为指定的值-布尔索引
+# 【重点】BOOL赋值, 将满足条件的设置为指定的值-布尔索引
 >>> test_score[test_score > 60] = 1
 >>> test_score
 array([[ 1,  1,  1, 52,  1],
@@ -1083,6 +1083,32 @@ array([[ 1,  1,  1, 52,  1],
 ```
 
 
+
+### 通用判断函数
+
+- `no.all(布尔表达式)`
+
+    只有所有的元素满足才返回 true
+
+    ```python
+    # 判断前两名同学的成绩是否全及格
+    np.all(source[0:2, :] > 60)
+    ```
+
+    
+
+- `np.any(布尔表达式)`
+
+    只有要有一个元素满足就返回 true
+
+    ```python
+    # 判断前两名同学的成绩[0:2, :]是否有大于 90 分的
+    np.any(source[0:2, :] > 90)
+    ```
+
+    
+
+​	
 
 
 
