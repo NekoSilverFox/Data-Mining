@@ -1108,7 +1108,35 @@ array([[ 1,  1,  1, 52,  1],
 
     
 
-​	
+### 三元运算符及复合逻辑
+
+- `np.where(布尔逻辑运算, 布尔值为True设置的值, 布尔值为False设置的值)` **返回**新的数组
+
+    ```python
+    # 通过使用 np.where 能够进行更加复杂的运算
+    # 判断前 4 名学生，前 3 门课程中，成绩中大于 60 的置为 1，否则为 0
+    
+    temp = source[:4, :3]
+    np.where(temp > 60, 1, 0)
+    ```
+
+    
+
+    
+
+- 复合逻辑需要结合 `np.logical_and`、 `np.logical_or` 、`np.logical_not` 使用
+
+    格式：`np.logical_and/or/not(布尔表达式1, 布尔表达式2, )`
+
+    ```python
+    # 判断前 4 名学生，前 3 门课程中，成绩中大于 60【且】小于 90 的换为 1，否则为 0
+    np.where(np.logical_and(temp > 60, temp < 90), 1, 0)
+    
+    # 判断前 4 名学生，前 3 门课程中，成绩中大于 60【或】小于 90 的换为 1，否则为 0
+    np.where(np.logical_or(temp > 60, temp < 90), 1, 0)
+    ```
+
+    
 
 
 
