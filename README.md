@@ -1515,6 +1515,81 @@ mark_stu @ weight
 
 
 
+---
+
+
+
+### 合并、分割
+
+- **数组的合并**
+
+| 函数                                                       | 描述                            |
+| ---------------------------------------------------------- | ------------------------------- |
+| `Numpy.hstack(ndarry1, ndarry2 ...)`                       | 横向拼接                        |
+| `Numpy.vstack(ndarry1, ndarry2 ...)`                       | 竖向拼接                        |
+| `Numpy.concatenate((ndarry1, ndarry2 ...), axis=按哪个轴)` | 按指定的 int 类型的 axis 轴拼接 |
+
+示例：
+
+```python
+# `Numpy.hstack(ndarry1, ndarry2 ...)` 
+# 注意参数的括号
+l = np.array((1, 2, 3))
+r = np.array((4, 5, 6))
+np.hstack((l, r))
+
+>>> array([1, 2, 3, 4, 5, 6])
+
+
+l = np.array([[1], [2], [3]])
+r = np.array([[4], [5], [6]])
+np.hstack((l, r))
+
+>>> array([[1, 4],
+       [2, 5],
+       [3, 6]])
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+# `Numpy.vstack(ndarry1, ndarry2 ...)` 
+# 注意参数的括号
+l = np.array((1, 2, 3))
+r = np.array((4, 5, 6))
+np.vstack((l, r))
+
+>>> array([[1, 2, 3],
+       [4, 5, 6]])
+
+
+l = np.array([[1], [2], [3]])
+r = np.array([[4], [5], [6]])
+np.vstack((l, r))
+
+>>> array([[1],
+       [2],
+       [3],
+       [4],
+       [5],
+       [6]])
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+# `Numpy.concatenate((ndarry1, ndarry2 ...), axis=按哪个轴)`
+l = np.array([[1, 2], [3, 4]])
+r = np.array([[5, 6]])
+
+# 沿着 x 轴合并
+np.concatenate((l, r), axis=0)
+
+>>> array([[1, 2],
+       [3, 4],
+       [5, 6]])
+
+# 沿着 y 轴合并
+np.concatenate((l, r.T), axis=1)
+
+>>> array([[1, 2, 5],
+       [3, 4, 6]])
+```
+
 
 
 
