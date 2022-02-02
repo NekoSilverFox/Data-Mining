@@ -1145,8 +1145,6 @@ array([[ 1,  1,  1, 52,  1],
 
 ### 统计指标
 
-### 统计指标
-
 获取数组的最小值、最大值、平均值、中位数等，可以使用:
 
 - `Numpy.函数名(ndarry, axis=按哪一坐标轴)` 如果不指明具体按哪个 axis，那么就是整个数组
@@ -1157,14 +1155,16 @@ array([[ 1,  1,  1, 52,  1],
 
 - **按 `Numpy.函数名(ndarry, axis=按哪一坐标轴)` 的方式**
 
-    | 函数名                         | 描述   |
-    | ------------------------------ | ------ |
-    | `np.min(ndarry, axis)`         | 最小值 |
-    | `np.max(ndarry, axis)`         | 最大值 |
-    | `np.median(ndarry, axis)`      | 中位数 |
-    | `np.mean(ndarry, axis, dtype)` | 平均数 |
-    | `np.std(ndarry, axis, dtype)`  | 标准差 |
-    | `np.var(ndarry, axis, dtype)`  | 方差   |
+    | 函数名                         | 描述         |
+    | ------------------------------ | ------------ |
+    | `np.min(ndarry, axis)`         | 最小值       |
+    | `np.max(ndarry, axis)`         | 最大值       |
+    | `np.median(ndarry, axis)`      | 中位数       |
+    | `np.mean(ndarry, axis, dtype)` | 平均数       |
+    | `np.std(ndarry, axis, dtype)`  | 标准差       |
+    | `np.var(ndarry, axis, dtype)`  | 方差         |
+    | `np.argmax(ndarry, axis)`      | 最大值的下标 |
+    | `np.argmin(ndarry, axis)`      | 最小值的下标 |
 
     ```python
     源数据：
@@ -1199,6 +1199,8 @@ array([[ 1,  1,  1, 52,  1],
     | `ndarry.mean(ndarry, axis, dtype)` | 平均数 |
     | `ndarry.std(ndarry, axis, dtype)`  | 标准差 |
     | `ndarry.var(ndarry, axis, dtype)`  | 方差   |
+    | `ndarry.argmax(ndarry, axis)` | 最大值的下标 |
+    | `ndarry.argmin(ndarry, axis)` | 最小值的下标 |
 
     ```python
     源数据：
@@ -1217,6 +1219,80 @@ array([[ 1,  1,  1, 52,  1],
     ```
 
     
+
+
+
+## 数组间运算
+
+### 数组与数的运算
+
+直接**用一个 ndarry 加减乘除 另一个数，会作用于 ndarry 中的每一个元素**
+
+
+
+例子：
+
+```python
+arr = np.array([[1, 2, 3, 2, 1, 4], [5, 6, 1, 2, 3, 1]])
+
+arr + 1
+>>> array([[2, 3, 4, 3, 2, 5],
+       [6, 7, 2, 3, 4, 2]])
+
+arr / 2
+>>> array([[0.5, 1. , 1.5, 1. , 0.5, 2. ],
+       [2.5, 3. , 0.5, 1. , 1.5, 0.5]])
+
+```
+
+
+
+### broadcast 广播机制
+
+**【重点】**数组在进行矢量化运算（element-wise）时，**要求 ndarry 数组的形状是相等的**。当形状不相等的数组执行算术运算的时候，就会出现广播机制，该机制会对数组进行扩展，使数组的 shape 属性值一样，这样，就可以进行矢量化运算了。
+
+
+
+**运算的数组之间满足以下任意的一个条件时才能进行运算：**
+
+- 对应维度的元素数量相同（维度等长）
+- 对应维度的元素数量有一个数组的是 1（shape）
+
+
+
+广播机制需要**扩展维度小的数组**，使得它与维度最大的数组的shape值相同，以便使用元素级函数或者运算符进行运算。
+
+![image-20220202170405943](doc/pic/README/image-20220202170405943.png)
+
+
+
+### 数组与数组的运算
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
