@@ -1705,7 +1705,7 @@ np.concatenate((l, r.T), axis=1)
 
 - **特点**
     - 以 Numpy为基础，借力 Numpy 模块在计算方面性能高的优势
-    - 基于 matplotlib，能够简便的画图
+    - 基于 Matplotlib，能够简便的画图
     - 独特的数据结构
 
 
@@ -1720,11 +1720,53 @@ np.concatenate((l, r.T), axis=1)
 
 
 
+- **Pandas 中的数据结构**
+    - Series - 一维数据结构
+    - DataFrame - 二维数据结构
+    - Multilndex - 三维数据结构
 
 
 
+> 因为 Pandas 是内置了 Numpy，所以说 Numpy 所具有的函数 Pandas 也有，甚至做了一些拓展
+
+### DataFrame
+
+Frame 是框架的意思
+
+DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**行索引**，又有**列索引**
+
+- **行索引**，表明不同行，横向索引，叫 `index` ，0轴，**axis=0**
+- **列索引**，表名不同列，纵向索引，叫 `columns`，1轴，**axis=1**
 
 
+
+**DataFrame 可以看作是，ndarry 外面包了一层行索引（index）和列索引（columns）**
+
+
+
+- **DataFrame 属性**
+
+    | 属性                | 描述                                 |
+    | ------------------- | ------------------------------------ |
+    | `DataFrame.shape`   | DataFrame 的形状                     |
+    | `DataFrame.index`   | DataFrame 的**行**索引序列           |
+    | `DataFrame.columns` | DataFrame 的**列**索引序列           |
+    | `DataFrame.values`  | DataFrame 中的 array（除了行列索引） |
+    | `DataFrame.T`       | 转置 DataFrame                       |
+
+    
+
+- **DataFrame 方法**
+
+    | 方法                                                   | 描述                                         |
+    | ------------------------------------------------------ | -------------------------------------------- |
+    | `pandas.DataFrame(数组, index=行索引, columns=列索引)` | **返回**一个二维的表                         |
+    | `pandas.head(N)`                                       | 返回前 N 行数据，参数中如果不指定，默认 5 行 |
+    | `pandas.tail(N)`                                       | 返回后 N 行数据，参数中如果不指定，默认 5 行 |
+    |                                                        |                                              |
+    |                                                        |                                              |
+
+    
 
 
 
