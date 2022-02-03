@@ -1692,7 +1692,33 @@ np.concatenate((l, r.T), axis=1)
 
 # Pandas
 
-![Pandas_logo](doc/pic/README/Pandas_logo.svg)
+<img src="doc/pic/README/Pandas_logo.svg" alt="Pandas_logo" style="zoom: 25%;" />
+
+## 简介
+
+- **Pandas 名字的解释：**
+    - pan - pandel - 面板
+    - da - data
+    - panel 面板数据，来源于计量经济学，用于处理三维数据
+
+
+
+- **特点**
+    - 以 Numpy为基础，借力 Numpy 模块在计算方面性能高的优势
+    - 基于 matplotlib，能够简便的画图
+    - 独特的数据结构
+
+
+
+- **为什么使用 Pandas**
+
+    Numpy 已经能够帮助我们处理数据，结合 matplotlib 解决部分数据展示等问题
+
+    - 便捷的数据处理能力（比如处理 nan 值）
+    - 读取文件方便（可以读取多种数据类型的数据）
+    - 封装了 Matplotlib 和 Numpy 的画图和计算
+
+
 
 
 
