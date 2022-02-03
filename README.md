@@ -670,6 +670,8 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
 
 
 
+![numpy思维导图](doc/pic/README/Numpy.svg)
+
 ## ndarray 内存块
 
 <img src="doc/pic/README/image-20220128175851159.png" alt="image-20220128175851159" style="zoom:50%;" />
@@ -1111,7 +1113,7 @@ array([[ 1,  1,  1, 52,  1],
 
 ### 三元运算符及复合逻辑
 
-- `np.where(布尔逻辑运算, 布尔值为True设置的值, 布尔值为False设置的值)` **返回**新的数组
+- `np.where(布尔表达式, 布尔值为True设置的值, 布尔值为False设置的值)` **返回**新的数组
 
     ```python
     # 通过使用 np.where 能够进行更加复杂的运算
@@ -1193,14 +1195,14 @@ array([[ 1,  1,  1, 52,  1],
 
     | 函数名                         | 描述   |
     | ------------------------------ | ------ |
-    | `ndarry.min(ndarry, axis)`         | 最小值 |
-    | `ndarry.max(ndarry, axis)`         | 最大值 |
-    | `ndarry.median(ndarry, axis)`      | 中位数 |
-    | `ndarry.mean(ndarry, axis, dtype)` | 平均数 |
-    | `ndarry.std(ndarry, axis, dtype)`  | 标准差 |
-    | `ndarry.var(ndarry, axis, dtype)`  | 方差   |
-    | `ndarry.argmax(ndarry, axis)` | 最大值的下标 |
-    | `ndarry.argmin(ndarry, axis)` | 最小值的下标 |
+    | `ndarry.min(axis)`         | 最小值 |
+    | `ndarry.max(axis)`         | 最大值 |
+    | `ndarry.median(axis)`      | 中位数 |
+    | `ndarry.mean(axis, dtype)` | 平均数 |
+    | `ndarry.std(axis, dtype)`  | 标准差 |
+    | `ndarry.var(axis, dtype)`  | 方差   |
+    | `ndarry.argmax(axis)` | 最大值的下标 |
+    | `ndarry.argmin(axis)` | 最小值的下标 |
 
     ```python
     源数据：
@@ -1467,7 +1469,7 @@ $$ AA^{-1} = A^{-1}A = I $$
 
     但是可以使用运算符 `@` 的进行相乘（矩阵相乘）！
 
-    `矩阵1 @ 矩阵2`
+    `数组1 @ 数组2`
 
 
 
