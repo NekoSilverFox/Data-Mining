@@ -1729,7 +1729,7 @@ np.concatenate((l, r.T), axis=1)
 
 > 因为 Pandas 是内置了 Numpy，所以说 Numpy 所具有的函数 Pandas 也有，甚至做了一些拓展
 
-### DataFrame
+## DataFrame
 
 Frame 是框架的意思
 
@@ -1744,7 +1744,7 @@ DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**�
 
 ---
 
-#### DataFrame 属性
+### DataFrame 属性
 
 | 属性                | 描述                                 |
 | ------------------- | ------------------------------------ |
@@ -1756,7 +1756,7 @@ DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**�
 
 ---
 
-#### DataFrame 方法
+### DataFrame 方法
 
 | 方法                                                   | 描述                                         |
 | ------------------------------------------------------ | -------------------------------------------- |
@@ -1770,7 +1770,7 @@ DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**�
 
 ---
 
-#### DatatFrame 索引的设置
+### DatatFrame 索引的设置
 
 | 方法                                                   | 描述                                                         |
 | ------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1885,15 +1885,106 @@ DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**�
 
 
 
+## MultiIndex 与 Panel
+
+### MultiIndex
+
+MultiIndex 是**三维的数据结构**;
+
+**多级索引（也称层次化索引）是 pandas 的重要功能，可以在 Series、DataFrame 对象上拥有 2个以及2个以上的索引。**
+
+MultiIndex 多级索引中包含 index 属性，index 属性下又包含 names 和 levels
 
 
 
+```python
+tmp.index
+
+>>> 
+MultiIndex([( 1, 2012),
+            ( 4, 2014),
+            ( 7, 2013),
+            (10, 2014)],
+           names=['month', 'year'])
+```
 
 
 
+- **`index` 属性**
+
+    - `names`: levels 的名称
+
+        ```python
+        tmp.index.names
+        
+        >>> FrozenList(['month', 'year'])
+        ```
+
+        
+
+    - `levels`：每个 level 的元组值
+
+        ```python
+        tmp.index.names
+        
+        >>> FrozenList([[1, 4, 7, 10], [2012, 2013, 2014]])
+        ```
 
 
 
+- **MultiIndex 的创建**
+
+    ```python
+    arrays = [[1, 1, 2, 2], ['red', 'blue', 'red', 'blue']]
+    pd.MultiIndex.from_arrays(arrays, names=('number', 'color'))
+    
+    # 结果
+    MultiIndex([(1,  'red'),
+                (1, 'blue'),
+                (2,  'red'),
+                (2, 'blue')],
+               names=['number', 'color'])
+    ```
+
+​	可以用 `MultiIndex.levers[n]` 的方式查看指定的层面
+
+
+
+### Pancel（不建议使用）
+
+> **注：Pandas 从版本 0.20.0 开始弃用：推荐的用于表示 3D 数据的方法是通过 DataFrame 上的 MultiIndex 方法**
+
+- **Panel的创建**
+    - *class* `pandas.Panel(*data=None*, *items=None*, *major_axis=None*, *minor_axis=None*)`
+        - 作用：存储3维数组的 Panel 结构
+        - 参数：
+            - **data** : ndarray 或者 dataframe
+            - **items** : 索引或类似数组的对象，axis=0
+            - **major_axis** : 索引或类似数组的对象，axis=1
+            - **minor_axis** : 索引或类似数组的对象，axis=2
+
+```python
+p = pd.Panel(data=np.arange(24).reshape(4,3,2),
+                 items=list('ABCD'),
+                 major_axis=pd.date_range('20130101', periods=3),
+                 minor_axis=['first', 'second'])
+
+# 结果
+<class 'pandas.core.panel.Panel'>
+Dimensions: 4 (items) x 3 (major_axis) x 2 (minor_axis)
+Items axis: A to D
+Major_axis axis: 2013-01-01 00:00:00 to 2013-01-03 00:00:00
+Minor_axis axis: first to second
+```
+
+
+
+- **查看 Panel 数据**
+
+```
+p[:,:,"first"]
+p["B",:,:]
+```
 
 
 
