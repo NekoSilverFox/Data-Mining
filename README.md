@@ -1990,11 +1990,122 @@ p["B",:,:]
 
 
 
+## Series
+
+Series 是一个类似于**一维数组**的数据结构，它能够保存任何类型的数据，比如整数、字符串、浮点数等，**主要由一组数据和与之相关的索引两部分构成。**
+
+- **Series 是一个带索引的一维数组**
+- DataFrame 是 Series 的容器
+- Pancel 是 DataFrame 的容器
+
+<img src="doc/pic/README/image-20220205222205344.png" alt="image-20220205222205344" style="zoom:50%;" />
+
+### Series 的创建
+
+`pandas.Series(data=None, index=None, dtype=None)` **返回** Series
+
+- 参数：
+    - `data`：传入的数据，可以是ndarray、list等
+    - `index`：索引，必须是唯一的，且与数据的长度相等。如果没有传入索引参数，则默认会自动创建一个从0-N的整数索引。
+    - `dtype`：数据的类型
 
 
 
+- **通过已有数据创建**
+
+    ```python
+    # 指定内容，默认索引
+    
+    pd.Series(np.arange(10))
+    
+    >>>
+    0    0
+    1    1
+    2    2
+    3    3
+    4    4
+    5    5
+    6    6
+    7    7
+    8    8
+    9    9
+    dtype: int64
+    ```
+
+    
+
+- **指定索引**
+
+    ```python
+    pd.Series([6.7,5.6,3,10,2], index=[1,2,3,4,5])
+    
+    >>> 
+    1     6.7
+    2     5.6
+    3     3.0
+    4    10.0
+    5     2.0
+    dtype: float64
+    ```
+
+    
+
+- **通过字典数据创建**
+
+    ```python
+    color_count = pd.Series({'red':100, 'blue':200, 'green': 500, 'yellow':1000})
+    color_count
+    
+    >>> 
+    red        100
+    blue       200
+    green      500
+    yellow    1000
+    dtype: int64
+    ```
+
+---
 
 
+
+### Series 的属性
+
+为了更方便地操作 Series 对象中的索引和数据，**Series 中提供了两个属性 index 和 values**
+
+
+
+- `index` 表示索引值的 ndarry
+
+    ```python
+    color_count.index
+    
+    >>>
+    Index(['red', 'blue', 'green', 'yellow'], dtype='object')
+    ```
+
+    
+
+- `values` 值列表
+
+    ```python
+    color_count.valuescolor_count.values
+    
+    >>>
+    array([ 100,  200,  500, 1000])
+    ```
+
+    
+
+- **使用索引来获取数据**
+
+    ```python
+    color_count[2]
+    
+    >>>
+    500
+    ```
+
+    
 
 
 
