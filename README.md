@@ -149,7 +149,7 @@ Jupyter 支持两种模式：
 
 ## Matplotlib 三层结构
 
-<img src="doc/pic/README/image-20220126172822687.png" alt="image-20220126172822687" style="zoom:30%;" />
+![Matplotlib](doc/pic/README/Matplotlib.svg)
 
 
 
@@ -857,7 +857,7 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
 >     
 >
 >     其中M为平均值，n为数据总个数，σ 为标准差，σ^2 可以理解一个整体为方差
->            
+>                
 >     <img src="doc/pic/README/image-20220129170536906.png" alt="image-20220129170536906" style="zoom:25%;" />
 >
 >     
