@@ -2481,7 +2481,7 @@ Numpy 当中我们已经讲过使用索引选取序列和切片选择，Pandas �
 
     ```python
     # 使用统计函数：0 代表列求结果， 1 代表行求统计结果
-    data.max(0)
+    data.max(axis=0)
     >>>
     open                   34.99
     high                   36.35
@@ -2545,7 +2545,7 @@ Numpy 当中我们已经讲过使用索引选取序列和切片选择，Pandas �
 
     ![image-20220206173409914](doc/pic/README/image-20220206173409914.png)
 
-
+---
 
 #### 自定义运算
 
@@ -2566,13 +2566,33 @@ dtype: float64
 
 
 
+---
 
 
 
+## Pandas 画图
+
+- DataFrame 画图
+
+`DataFrame.plot(x=None, y=None, kind='line')`
+
+- `kind` string 类型
+    - `'line'` 折线图
+    - `'bar'`柱状图
+    - `'scatter'`散点图
+    - `'barh'`水平条形图 （http://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.barh.html）
+    - `'hist'`直方图
+    - `'pie'`饼图
+
+> 更多细节：https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html?highlight=plot#pandas.DataFrame.plot
 
 
 
+```python
+data.plot(x='p_change', y='low', kind='scatter')
+```
 
+![image-20220206202248592](doc/pic/README/image-20220206202248592.png)
 
 
 
