@@ -2598,6 +2598,108 @@ data.plot(x='p_change', y='low', kind='scatter')
 
 
 
+---
+
+
+
+## 文件的读取与存储
+
+我们的数据大部分存在于文件当中，Pandas 支持复杂的IO操作，Pandas 的 API 支持众多的文件格式，如 CSV、SQL、XLS、JSON、HDF5。
+
+> 注：最常用的 HDF5 和 CSV 文件
+
+![Pandes读取存储](doc/pic/README/Pandes读取存储.png)
+
+
+
+### CSV
+
+- **CSV 文件的读取**
+
+    `pandas.read_csv(filepath_or_buffer, sep =',', usecols=[])`
+
+    - `filepath_or_buffer` 文件路径
+
+    - `sep`  分隔符，默认用 `,`隔开
+
+    - `usecols` 指定读取的列名，列表形式
+
+        
+
+    ```python
+    # 举例：读取之前的股票的数据
+    # 读取文件,并且指定只获取'open', 'close'指标
+    data = pd.read_csv("./data/stock_day.csv", usecols=['open', 'close'])
+    
+    >>>
+    
+    ```
+
+    
+
+- **CSV 文件的写入**
+
+    `DataFrame.to_csv(path_or_buf=None, sep=',', columns=None, header=True, index=True, mode='w', encoding=None)`
+
+    - `path_or_buf` 文件路径
+
+    - `sep` 分隔符，默认用 `,` 隔开
+
+    - `columns` 选择需要写入文件的列索引
+
+    - `header` 默认为 True，是否写进**列（columns）**索引值
+
+    - `index` 是否写进**行（index）**索引
+
+    - `mode` 'w'：重写；'a' 追加在文件末尾
+
+        
+
+    ```python
+    # 选取10行数据保存,便于观察数据
+    data[:10].to_csv('./data/test/test.csv', columns=['open'])
+    
+    # 读取，查看结果
+    pd.read_csv('./data/test/test.csv')
+    >>>
+    	Unnamed: 0    open
+    0    2018-02-27    23.53
+    1    2018-02-26    22.80
+    2    2018-02-23    22.88
+    3    2018-02-22    22.25
+    4    2018-02-14    21.49
+    5    2018-02-13    21.40
+    6    2018-02-12    20.70
+    7    2018-02-09    21.20
+    8    2018-02-08    21.79
+    9    2018-02-07    22.69
+    
+    
+    # 会发现将索引存入到文件当中，变成单独的一列数据。如果需要删除，可以指定index参数,删除原来的文件，重新保存一次。
+    data[:10].to_csv('./data/test/test.csv', columns=['open'], index=False)
+    
+    >>>
+    open
+    23.53
+    22.8
+    22.88
+    22.25
+    21.49
+    21.4
+    20.7
+    21.2
+    21.79
+    22.69
+    ```
+
+    
+
+
+
+
+
+
+
 
 
 
