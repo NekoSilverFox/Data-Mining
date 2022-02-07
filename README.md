@@ -39,7 +39,7 @@
 | Numpy      |                                                              |
 | Pandas     | 可以用于数据清洗                                             |
 | TA-Lib     | 技术指标库                                                   |
-| Tables     | 读取某一种数据文件（hdf5 - 经过压缩的一种数据文件）          |
+| Tables     | 读取 hdf5 数据文件（hdf5 - 经过压缩的一种数据文件，可存储三维数据） |
 | Jupyter    | 数据分析与展示的平台                                         |
 
 
@@ -2619,12 +2619,10 @@ data.plot(x='p_change', y='low', kind='scatter')
     `pandas.read_csv(filepath_or_buffer, sep =',', usecols=[])`
 
     - `filepath_or_buffer` 文件路径
-
     - `sep`  分隔符，默认用 `,`隔开
-
     - `usecols` 指定读取的列名，列表形式
 
-        
+    > 注意：如果 CSV 文件中没有存储列名（columns），那么在使用 API 读取的时候就一定要显示的在 `usecols` 中指定列名是什么，否则会把第一行数据作为列名
 
     ```python
     # 举例：读取之前的股票的数据
@@ -2693,6 +2691,85 @@ data.plot(x='p_change', y='low', kind='scatter')
     ```
 
     
+
+---
+
+
+
+### HDF5
+
+- **HDF5 特点**
+    - **【重点】HDF5 存储的是三维数据，可以说是同时存放多个二维数据**
+    - HDF5 是二进制文件
+    - 文件后缀是 `h5`
+
+
+
+**注意：优先选择使用 HDF5 文件存储**
+
+- HDF5 在存储的时候支持压缩，**使用的方式是 blosc，这个是速度最快**的也是 pandas 默认支持的
+- 使用压缩可以**提磁盘利用率，节省空间**
+- HDF5 还是跨平台的，可以轻松迁移到 hadoop 上面
+
+
+
+
+
+- **HDF5 文件的读取**
+
+    `pandas.read_hdf(path_or_buf，key=None，**kwargs)`
+
+    - `path_or_buffer` 文件路径
+    - `key` 读取的键（二维数据的名称），如果一个 h5 文件中有**多个**二维数据，则需指定此键。否则报错
+
+    ```python
+    # 读取
+    data = pd.read_hdf('./data/stock_day/hdf5/day_high.h5')
+    data.head()
+    
+    # 如果文件中有多个二维数据，如果不指定 key 会报错
+    data = pd.read_hdf('./data/test/test.h5', key='key2')
+    data
+    ```
+
+    
+
+
+
+
+
+- **HDF5 文件的写入**
+
+    `DataFrame.to_hdf(path_or_buf, key, **kwargs)`
+
+    - `path_or_buffer` 文件路径
+    - `key` 写入此键的键名称（二维数据的名称），**写入的时候必须指定此键！**
+
+    ```python
+    # 后 10 行
+    # 写入, 写入的时候必须指定 key ！
+    data[-10:].to_hdf('./data/test/test.h5', key='key2')
+    ```
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
