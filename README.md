@@ -857,7 +857,7 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
 >     
 >
 >     其中M为平均值，n为数据总个数，σ 为标准差，σ^2 可以理解一个整体为方差
->                                        
+>                                            
 >     <img src="doc/pic/README/image-20220129170536906.png" alt="image-20220129170536906" style="zoom:25%;" />
 >
 >     
@@ -1738,6 +1738,8 @@ np.concatenate((l, r.T), axis=1)
 
 
 
+**注意：pandas 在设计之初，默认为一行即为一个样本**
+
 > 因为 Pandas 是内置了 Numpy，所以说 Numpy 所具有的函数 Pandas 也有，甚至做了一些拓展
 
 
@@ -1773,13 +1775,13 @@ DataFrame 是一个类似于二维数组或表格(如excel)的对象，既有**�
 
 ### DataFrame 方法
 
-| 方法                                                         | 描述                                               |
-| ------------------------------------------------------------ | -------------------------------------------------- |
-| `pandas.DataFrame(数组或ndarry, index=行索引, columns=列索引)` | **返回**将 index 和 columns 与数组粘合的 DataFrame |
-| `DataFrame.head(N)`                                          | 返回前 N 行数据，参数中如果不指定，默认 5 行       |
-| `DataFrame.tail(N)`                                          | 返回后 N 行数据，参数中如果不指定，默认 5 行       |
-|                                                              |                                                    |
-|                                                              |                                                    |
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `pandas.DataFrame(数组或ndarry, index=行索引, columns=列索引)` | **返回**将 index 和 columns 与数组粘合的 DataFrame           |
+| `DataFrame.head(N)`                                          | **返回**前 N 行数据，参数中如果不指定，默认 5 行             |
+| `DataFrame.tail(N)`                                          | **返回**后 N 行数据，参数中如果不指定，默认 5 行             |
+| `DataFrame.any()`                                            | **按列返回**属性（columns）中是否拥有 True<br />如果本属性中有一个 True 则返回 True；否则 False<br />**注意：** 前提 DataFrame 中要全为 Bool 值！ |
+|                                                              |                                                              |
 
 
 
@@ -2806,6 +2808,43 @@ JSON 是我们常用的一种数据交换格式，前面在**前后端的交互*
 
 
 
+
+## 缺失值处理
+
+处理缺失值的思路：
+
+- 删除带有缺失值的样本
+- 插补/替换
+
+
+
+**当我们读取的数据中有缺失值时，pandas 中表示为为 `NaN` (Not a Number)。在处理缺失值时，需要有一下步骤：**
+
+1. **判断数据中是否存在** `NaN`
+    - `pandas.isnull(DataFrame)` 会在**是**缺失值的地方标记为 True
+    - `pandas.notnull(DataFrame)` 会在**不是**缺失值的地方标记为 True
+
+
+
+2. **处理缺失值**
+
+    - **删除含有缺失值的样本**
+
+        `DataFrame.dropna(inplace=False)`
+
+        `inplace` 如果标记为 True 会直接修改本 DataFrame，而如果为 False 则不会直接修改本数组，而是**返回**新数组（默认即为 False）
+
+        
+
+    - **替换/插补**
+
+        `DataFrame.fillna(value=要填补的值, inplace=False)`
+
+        `inplace` 如果标记为 True 会直接修改本 DataFrame，而如果为 False 则不会直接修改本数组，而是**返回**新数组（默认即为 False）
+
+        
+
+3. **如果缺失值没有标记为 `NaN`，比如空格、逗号等**
 
 
 
