@@ -857,7 +857,7 @@ Numpy 的底层是使用 C 实现的，所以操作的效率极高。Numpy 专�
 >     
 >
 >     其中M为平均值，n为数据总个数，σ 为标准差，σ^2 可以理解一个整体为方差
->                                                
+>                                                    
 >     <img src="doc/pic/README/image-20220129170536906.png" alt="image-20220129170536906" style="zoom:25%;" />
 >
 >     
@@ -2967,10 +2967,11 @@ pd.isnull(data).any()
 
 
     - 自定义分组：`Series = pandas.cut(x=一维数据, bins=[])`
-
+    
       > 使用 `Series.value_counts()` 方法可以查看每个分组中元素的数量
-      
-        
+
+
+​        
 
 
 2. **将分组好的结果转换为 one-hot 编码或哑变量**
@@ -3040,11 +3041,15 @@ sr = pd.get_dummies(data=sr, prefix='股票')
 
 
 
-**pandas 拼接：**
+### concat
+
+**pandas 按指定轴方向拼接：**
 
 - `pandas.concat([data1, data2, ...], axis=0)` 默认 axis=0 即竖直拼接，指定为 1 可按行拼接
 
     **注意：**如果索引（index）不一致的情况下进行按列拼接，则效果类似于数据库中的 `FULL JOIN` 效果
+
+    
 
     
 
@@ -3060,7 +3065,77 @@ sr = pd.get_dummies(data=sr, prefix='股票')
 
 
 
+---
 
+
+
+### merge
+
+`pandas.merge(left=左表, right=右表, how='合并方式', on=['键1', '键2', ...])` 将表按照两组数据的共同键值对合并（类似数据库中连接）
+
+- `how` 表示按什么方式连接，可以有：`left` | `right` | `inner` | `outer`，默认为 `inner`
+
+
+
+- **内连接（默认）**
+
+    即为按 key 保留左右表共同键
+
+    ```python
+    tb_left = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K2'],
+                            'key2': ['K0', 'K1', 'K0', 'K1'],
+                            'A': ['A0', 'A1', 'A2', 'A3'],
+                            'B': ['B0', 'B1', 'B2', 'B3']})
+    
+    tb_right = pd.DataFrame({'key1': ['K0', 'K1', 'K1', 'K2'],
+                            'key2': ['K0', 'K0', 'K0', 'K0'],
+                            'C': ['C0', 'C1', 'C2', 'C3'],
+                            'D': ['D0', 'D1', 'D2', 'D3']})
+    
+    # 默认内连接
+    pd.merge(left=tb_left, right=tb_right, on=['key1', 'key2'])
+    ```
+
+    <img src="doc/pic/README/内连接.png" alt="内连接" style="zoom:50%;" />
+
+    
+
+- **左连接**
+
+    保留左表所有键
+
+    ```python
+    # 左连接
+    pd.merge(left=tb_left, right=tb_right, how='left', on=['key1', 'key2'])
+    ```
+
+    <img src="doc/pic/README/左连接.png" alt="左连接" style="zoom:50%;" />
+
+    
+
+- **右连接**
+
+    保留右表所有键
+
+    ```python
+    # 右连接
+    pd.merge(left=tb_left, right=tb_right, how='right', on=['key1', 'key2'])
+    ```
+
+    <img src="doc/pic/README/右连接.png" alt="右连接" style="zoom:50%;" />
+
+    
+
+- **外连接**
+
+    保留左右表所有键
+    
+    ```python
+    # 外连接
+    pd.merge(left=tb_left, right=tb_right, how='outer', on=['key1', 'key2'])
+    ```
+    
+    <img src="doc/pic/README/外链接.png" alt="外链接" style="zoom:50%;" />
 
 
 
