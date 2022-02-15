@@ -2847,11 +2847,19 @@ JSON 是我们常用的一种数据交换格式，前面在**前后端的交互*
 
         
 
-3. **如果缺失值没有标记为 `NaN`，比如空格、逗号等**
+3. **如果缺失值没有标记为 `NaN`，比如空格、问号等**
+
+    - 将其他字符换成 `NaN`，也就是 `numpy.nan` 再进行替换；**注意：是 `numpy` 不是 `pandas`！**
+
+        替换的 API：`DataFrame.replace(to_place='要替换的字符', value=NUMPY.nan)`
 
 
 
 ---
+
+
+
+- 处理 `NaN` 的方法
 
 ```python
 import pandas as pd
@@ -2886,6 +2894,24 @@ pd.isnull(data).any()
 ```
 
 
+
+- 如果为其他标识的缺失值，比如 `?`
+
+    ```python
+    # 全局取消证书验证
+    import ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
+    
+    data = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data')
+    
+    # 把一些其它值标记的缺失值，替换成 np.nan
+    data = data.replace(to_replace='?', value=np.nan)
+    
+    # 这里采用删除缺失值的方式
+    data = data.dropna()
+    ```
+
+    
 
 
 
