@@ -2820,9 +2820,12 @@ JSON 是我们常用的一种数据交换格式，前面在**前后端的交互*
 
 **当我们读取的数据中有缺失值时，pandas 中表示为为 `NaN` (Not a Number)。在处理缺失值时，需要有一下步骤：**
 
-1. **判断数据中是否存在** `NaN`
-    - `pandas.isnull(DataFrame)` 会在**是**缺失值的地方标记为 True
-    - `pandas.notnull(DataFrame)` 会在**不是**缺失值的地方标记为 True
+1. **判断数据中是否存在** `NaN` 或 `None`
+
+    > 使用 pandas.isnull(DataFrame) 或 .isnull(DataFrame) 也可以，这两个其实是 isna/notna 的别名
+
+    - `pandas.isna(DataFrame)` 会在**是**缺失值的地方标记为 True
+    - `pandas.notna(DataFrame)` 会在**不是**缺失值的地方标记为 True
 
 
 
@@ -2845,6 +2848,42 @@ JSON 是我们常用的一种数据交换格式，前面在**前后端的交互*
         
 
 3. **如果缺失值没有标记为 `NaN`，比如空格、逗号等**
+
+
+
+---
+
+```python
+import pandas as pd
+import numpy as np
+
+# 1. 读取数据
+data = pd.read_csv('./data/IMDB-Movie-Data.csv')
+
+
+# 2. 判断缺失值是否存在（法一）
+pd.isna(data)  # 在是 NaN | None 的地方标记为 True
+pd.notna(data)  # 在不是 NaN | None 的地方标记为 True
+
+np.any(pd.isna(data))  # 借助 numpy 的 any 函数进行判断
+np.all(pd.notna(data))
+
+pd.isna(data).any()  # 【重点】会按照列进行返回，那些列中有 True
+pd.notna(data).all()
+
+# 删除带有缺失值的样本, 参数 inplace 默认为 False 即返回新 DataFrame
+data.dropna()
+
+
+# 3. 处理缺失值
+# 使用插补法分别处理含有缺失值的两列（采用平均值）
+data['Revenue (Millions)'].fillna(value=data['Revenue (Millions)'].mean(), inplace=True)
+# 使用插补法分别处理含有缺失值的两列（采用平均值）
+data['Metascore'].fillna(value=data['Metascore'].mean(), inplace=True)
+
+pd.isnull(data).any()
+
+```
 
 
 
