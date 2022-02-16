@@ -3229,11 +3229,81 @@ result.plot(kind='bar', stacked=True)  # 第二个参数为是否堆叠显示
 
     
 
+---
 
 
 
 
 
+## 分组与聚合
+
+交叉表和透视表其实也是一种分组与聚合。
+
+**pandas 中的数据很像数据库总的** `GROUP BY`，可以对 DataFrame 和 Series 进行操作。**但在 pandas中，抛开聚合谈分组，无意义**
+
+<img src="doc/pic/README/分组聚合原理.png" alt="分组聚合原理" style="zoom:50%;" />
+
+- `DataFrame.groupby(by=[按哪种index分组], as_index=False)`  **分组**
+
+    - `by` 按哪一（些）列分组，也就是数据库中 `GROUP BY` 哪些属性
+    - `as_index` 要分组的列是否作为结果的 `index`，默认为 False
+
+    
+
+    **注意！分组后只会返回一个 GroupBy 对象，并不会返回 DataFrame 或者 Series，必须再调用聚合函数才可以进行显示！**，聚合函数也就是 `min() | max() | count() | sum() ...` 这些
+
+    
+
+- **简单分组演示**
+
+    ```python
+    # 案例:不同颜色的不同笔的价格数据
+    col =pd.DataFrame({'color': ['white','red','green','red','green'], 'object': ['pen','pencil','pencil','ashtray','pen'],'price1':[5.56,4.20,1.30,0.56,2.75],'price2':[4.75,4.12,1.60,0.75,3.15]})
+    
+    col.groupby(by=['color'])
+    >>>
+    <pandas.core.groupby.generic.DataFrameGroupBy object at 0x14ef5f7f0>
+    
+    # 按照 DataFrame 的方式分组（建议使用此方式）
+    col.groupby(by=['color'])['price1'].sum()
+    >>>
+    color
+    green    4.05
+    red      4.76
+    white    5.56
+    Name: price1, dtype: float64
+            
+            
+    # 按照 Series 的方式分组，先取出需要的列
+    col['price1'].groupby(by=col['color']).mean()
+    >>>
+    color
+    green    2.025
+    red      2.380
+    white    5.560
+    Name: price1, dtype: float64
+    ```
+
+
+
+- **【案例】星巴克零售数据**
+
+    现在我们有一组关于全球星巴克店铺的统计数据，如果我想知道美国的星巴克数量和中国的哪个多，或者我想知道中国每个省份星巴克的数量的情况，那么应该怎么办？
+
+    ```python
+    starbucks = pd.read_csv('./data/starbucks.csv')
+    
+    # 按照国家分组，求出每个国家的星巴克零售店数量
+    sb_count = starbucks.groupby(by=['Country'])['Brand'].count()
+    
+    # 进行画图
+    sb_count.sort_values(ascending=False).plot(kind='bar', figsize=(20, 8))
+    
+    # 假设我们加入省市一起进行分组
+    sb_sount2 = starbucks.groupby(by=['State/Province', 'City']).count()  # 【重点】会返回类似 MultIndex 的结构
+    ```
+
+    ![image-20220216202314435](doc/pic/README/image-20220216202314435.png)
 
 
 
