@@ -2818,7 +2818,7 @@ JSON 是我们常用的一种数据交换格式，前面在**前后端的交互*
 
 
 
-**当我们读取的数据中有缺失值时，pandas 中表示为为 `NaN` (Not a Number)。在处理缺失值时，需要有一下步骤：**
+**当我们读取的数据中有缺失值时，pandas 中表示为为 `NaN` (Not a Number，类型为 float)。在处理缺失值时，需要有一下步骤：**
 
 1. **判断数据中是否存在** `NaN` 或 `None`
 
@@ -2963,7 +2963,8 @@ pd.isnull(data).any()
 
 1. **分组**
 
-    - 自动分组：`Series = pandas.qcut(x=一维数据, q=分成几组)`
+    - 自动分组：`Series = pandas.qcut(x=一维数据, q=分成几组)` **返回**离散化的 Series
+    - 自定义切分：`Series = pandas.cut(x=一维数据, , bins=[按哪些数值切分])` **返回**离散化的 Series
 
 
     - 自定义分组：`Series = pandas.cut(x=一维数据, bins=[])`
@@ -2975,7 +2976,7 @@ pd.isnull(data).any()
 
 
 2. **将分组好的结果转换为 one-hot 编码或哑变量**
-    - `pandas.get_dummies(data=Series, prefix='前缀')`
+    - `DataFrame = pandas.get_dummies(data=Series, prefix='前缀')` **返回**离散化的 Series 为 DataFrame
 
 
 
