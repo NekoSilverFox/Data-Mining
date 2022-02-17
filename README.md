@@ -3308,9 +3308,140 @@ result.plot(kind='bar', stacked=True)  # 第二个参数为是否堆叠显示
 
 
 
+## 案例（电影）
+
+对于这一组电影数据，如果我们希望统计电影分类(genre)的情况，应该如何处理数据？
+
+![image-20220217124002971](doc/pic/README/image-20220217124002971.png)
 
 
 
+思路分析：
+
+1、创建一个全为0的dataframe，列索引置为电影的分类，temp_df
+
+2、遍历每一部电影，temp_df中把分类出现的列的值置为1
+
+3、求和
+
+
+
+```python
+# 1. 拿到电影类型的 Series
+movies['Genre']
+>>>
+0       Action,Adventure,Sci-Fi
+1      Adventure,Mystery,Sci-Fi
+2               Horror,Thriller
+3       Animation,Comedy,Family
+4      Action,Adventure,Fantasy
+                 ...           
+995         Crime,Drama,Mystery
+996                      Horror
+997         Drama,Music,Romance
+998            Adventure,Comedy
+999       Comedy,Family,Fantasy
+Name: Genre, Length: 1000, dtype: object
+            
+            
+# 2. 转换为列表格式
+# 可以使用 for 循环，也可以使用【列表生成式】
+genre = [i.split(',') for i in movies['Genre']]  # i 是 string 类型
+>>>
+[['Action', 'Adventure', 'Sci-Fi'],
+ ['Adventure', 'Mystery', 'Sci-Fi'],
+ ['Horror', 'Thriller'],
+ ['Animation', 'Comedy', 'Family'],
+ ['Action', 'Adventure', 'Fantasy'],
+ ['Action', 'Adventure', 'Fantasy'],
+ 
+ 
+ # 3. 统计电影种类共有多少
+[j for i in genre for j in i]
+>>>
+ ['Action',
+ 'Adventure',
+ 'Sci-Fi',
+ 'Adventure',
+ 'Mystery',
+ 'Sci-Fi',
+ 'Horror',
+ 'Thriller',
+  
+movies_types = np.unique([j for i in genre for j in i])
+>>>
+  array(['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime',
+       'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music',
+       'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller',
+       'War', 'Western'], dtype='<U9')
+  
+num_type = len(movies_types)
+>>>
+  20
+  
+  
+# 4. 创建一个全为 0 的 DataFrame，然后把每一个电影（行）对应的种类（列）置为 1
+tmp_zeros_ndarry = np.zeros(shape=(movies.shape[0], num_type), dtype=np.int32)
+
+df_gener = pd.DataFrame(tmp_zeros_ndarry, index=movies['Title'], columns=movies_types)
+>>>
+  
+Action	Adventure	Animation	Biography	Comedy	Crime	Drama	Family	Fantasy	History	Horror	Music	Musical	Mystery	Romance	Sci-Fi	Sport	Thriller	War	Western
+Title																				
+Guardians of the Galaxy	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Prometheus	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Split	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Sing	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Suicide Squad	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+
+  
+# 5. 遍历每一部电影，genre 中把分类出现的列的值置为1
+# df_gener.loc[[i for i in movies['Title']], genre] + 1 ERROR，因为一次只能索引一行
+
+for i in range(movies.shape[0]):
+    df_gener.loc[movies['Title'][i]][genre[i]] = 1
+>>>
+  	Action	Adventure	Animation	Biography	Comedy	Crime	Drama	Family	Fantasy	History	Horror	Music	Musical	Mystery	Romance	Sci-Fi	Sport	Thriller	War	Western
+Title																				
+Guardians of the Galaxy	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Prometheus	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0
+Split	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0
+Sing	0	0	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0
+Suicide Squad	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+  
+  
+# 6. 按列统计数量
+df_gener.sum().sort_values(ascending=False)
+>>>
+Drama        512
+Action       302
+Comedy       278
+Adventure    258
+Thriller     195
+Crime        150
+Romance      140
+Sci-Fi       120
+Horror       118
+Mystery      106
+Fantasy      101
+Biography     81
+Family        51
+Animation     49
+History       29
+Sport         18
+Music         16
+War           13
+Western        7
+Musical        5
+dtype: int64
+  
+  
+# 7. 绘图
+df_gener.sum().sort_values(ascending=False).plot(kind='bar', figsize=(20, 8), fontsize=22, colormap='cool')
+>>>
+```
+
+![image-20220217124600148](doc/pic/README/image-20220217124600148.png)
 
 
 
